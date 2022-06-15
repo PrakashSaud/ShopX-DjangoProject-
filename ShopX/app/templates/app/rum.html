@@ -1,0 +1,30 @@
+{% extends 'app/base.html' %} {% load static %} {% block title %}Rums{% endblock title %} {% block main-content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="list-group">
+                <a href="{% url 'rums' %}" class="list-group-item list-group-item-action" aria-current="true">All Rums</a>
+                <a href="{% url 'rumdata' 'Rum' %}" class="list-group-item list-group-item-action" aria-current="true">Rum</a>
+                <a href="{% url 'rumdata' 'below' %}" class="list-group-item list-group-item-action">Below $ 20</a>
+                <a href="{% url 'rumdata' 'above' %}" class="list-group-item list-group-item-action">Above $ 20</a>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="row">
+                {% for rum in rums %}
+                <div class="col-sm-4 text-center mb-4">
+                    <a href="{% url 'product-detail' rum.id %}" class="btn">
+                        <div class="item">
+                            <img src="{{ rum.product_image.url }}" alt="" height="300" class="">
+                            <div class="fw-bold">{{ rum.title }}</div>
+                            <div class="fw-bold">$ {{ rum.get_discounted_price }}</div>
+                            <small class="fw-light text-decoration-line-through">{{ rum.selling_price }}</small>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

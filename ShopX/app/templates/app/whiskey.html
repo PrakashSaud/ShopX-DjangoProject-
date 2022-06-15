@@ -1,0 +1,29 @@
+{% extends 'app/base.html' %} {% load static %} {% block title %}Whiskeys{% endblock title %} {% block main-content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="list-group">
+                <a href="{% url 'whiskeys' %}" class="list-group-item list-group-item-action" aria-current="true">All Whiskey</a>
+                <a href="{% url 'whiskeydata' 'below' %}" class="list-group-item list-group-item-action">Below $ 20</a>
+                <a href="{% url 'whiskeydata' 'above' %}" class="list-group-item list-group-item-action">Above $ 20</a>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="row">
+                {% for whiskey in whiskeys %}
+                <div class="col-sm-4 text-center mb-4">
+                    <a href="{% url 'product-detail' whiskey.id %}" class="btn">
+                        <div class="item">
+                            <img src="{{ whiskey.product_image.url }}" alt="" height="300" class="">
+                            <div class="fw-bold">{{ whiskey.title }}</div>
+                            <div class="fw-bold">$ {{ whiskey.get_discounted_price }}</div>
+                            <small class="fw-light text-decoration-line-through">{{ whiskey.selling_price }}</small>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}
